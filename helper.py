@@ -157,6 +157,7 @@ def read_concat(folder_names, target_file_name):
     """
     import os
     import pandas as pd
+   
     
     df_con = pd.DataFrame()
     for folder in folder_names:
@@ -175,4 +176,49 @@ def cleaning_dollar(series):
     series = series.str.replace(',', '').astype(float)
     
     return series
+
+class AnalysisStatus:
+    
+    def __init__(self, calendar, listings):
+        """
+        Instantiating the calendar dataset
+        """
+        import seaborn as sns
+        import matplotlib.pyplot as plt
+        
+        global sns
+        global plt
+        
+        # Attributes
+        self.calendar = calendar
+        self.listings = listings
+
+    def correlation_status(self, column_list):
+        """
+        Plotting the correlations to keep track of multicollinearity and corrlation with price.
+        
+        parameters:
+        -----------
+        column_list : the list of columns to see on the heatmap
+            use price_listing for listings price
+        """
+        col_interest = []
+        
+        # Avoid duplicates
+        [col_interest.append(x) for x in ['price'] + column_list if x not in col_interest]
+        
+        # Merge price and listings
+        price_corr = self.calendar.merge(
+            self.listings,
+            left_on='listing_id',
+            right_on='id',
+            how='left',
+            suffixes=['', '_listing'])[col_interest]
+        
+        # Drop ids and set all as floats
+        price_corr = price_corr.query("price==price").astype(float).corr()
+
+        plt.figure(figsize=(14, 10))
+
+        sns.heatmap(price_corr, annot=True, cmap='magma');
 
