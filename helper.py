@@ -21,7 +21,9 @@ class Tracker:
         self.trackers = []     
         
         for name in self.tracker_names:
-            self.trackers.append(trackers.get(name))
+            self.trackers.append(trackers.get(name))Q$^D9a0DQm2c
+            &t216B4F1nt4
+            &t216B4F1nt4
     
     def replace(self, tracker_name, value, new_value):
         """
@@ -254,14 +256,17 @@ class AnalysisStatus:
                        figsize=(12, 5),
                        title=title); 
         
-    def listing_null_status(self):
+    def listing_null_status(self, percentages=False):
         """
         Getting values of null values of listings
         """
+        output = self.listings.isnull().sum().where(lambda x: x > 0).dropna(
+            ).sort_values(ascending=False)
         
-        # Extracting series
-        return self.listings.isnull().sum().where(lambda x: x > 0).dropna().sort_values(
-            ascending=False)
+        if percentages:
+            return output/self.listings.shape[0]
+        else:
+            return output
         
     def scatter_status(self, by):
         """

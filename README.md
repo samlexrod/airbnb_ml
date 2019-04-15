@@ -14,6 +14,16 @@ The following Airbnb activity is included in this Boston dataset:
     
 ## Environment
 The environment used for this analysis is the Anaconda distribution using Python 3. 
-    
-    
+
+The libraries used are the following:
+In jupyter notebook:
+* pandas
+* numpy
+* seaborn
+* matplotlib.pyplot
+* os
+* re
+* sklearn.preprocessing.OneHotEncoder
+* wordcloud
+* zipfile.ZipFile
 
