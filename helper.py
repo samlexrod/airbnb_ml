@@ -46,7 +46,7 @@ class Tracker:
         self.trackers[tracker_idx][value_idx] = new_value
         
         
-    def add(self, track_type, features, assessed=False):
+    def add(self, track_type, features, assessed=True):
         """
         To keep track of features
 
@@ -121,7 +121,7 @@ class Tracker:
             # Combine trackers in df
             df = pd.concat([df, df_col], axis=1)
 
-        return df
+        return df.fillna('')
     
 def unzip_files(zip_filename_list, folder=None):
     """
@@ -192,8 +192,21 @@ class AnalysisStatus:
         # Attributes
         self.calendar = calendar
         self.listings = listings
+        
+        self._merge()
+        
+    def _merge(self):
+        """
+        Merges the dataframes for analysis
+        """
+        self.df_merged = self.calendar.merge(
+            self.listings,
+            left_on='listing_id',
+            right_on='id',
+            how='left',
+            suffixes=['', '_listing'])
 
-    def correlation_status(self, column_list):
+    def correlation_status(self, column_list, show_values=True):
         """
         Plotting the correlations to keep track of multicollinearity and corrlation with price.
         
@@ -208,17 +221,59 @@ class AnalysisStatus:
         [col_interest.append(x) for x in ['price'] + column_list if x not in col_interest]
         
         # Merge price and listings
-        price_corr = self.calendar.merge(
-            self.listings,
-            left_on='listing_id',
-            right_on='id',
-            how='left',
-            suffixes=['', '_listing'])[col_interest]
+        price_corr = self.df_merged[col_interest]
         
         # Drop ids and set all as floats
         price_corr = price_corr.query("price==price").astype(float).corr()
 
         plt.figure(figsize=(14, 10))
 
-        sns.heatmap(price_corr, annot=True, cmap='magma');
+        sns.heatmap(price_corr, annot=show_values, cmap='magma');
+        
+    def listing_row_null_dist(self, bins, title):
+        """
+        Plotting the distribution of null values by state
+        """
+        
+        # Adding row null counts to listings
+        t_columns = self.listings.shape[1]
+        h_columns = self.listings.isnull().sum(axis=1)
+        self.listings.loc[:, 'row_null_pct'] = h_columns/t_columns
+        
+        # Makes sure state has consisntent cases
+        upper_func = lambda x: x.state.str.upper()
+        
+        # Plot
+        self.listings.assign(state=upper_func)[['state', 'row_null_pct']]\
+            .reset_index()\
+            .pivot(index='index',
+                  columns='state',
+                  values='row_null_pct')\
+            .plot.hist(alpha=.5, 
+                       bins=bins,
+                       figsize=(12, 5),
+                       title=title); 
+        
+    def listing_null_status(self):
+        """
+        Getting values of null values of listings
+        """
+        
+        # Extracting series
+        return self.listings.isnull().sum().where(lambda x: x > 0).dropna().sort_values(
+            ascending=False)
+        
+    def scatter_status(self, by):
+        """
+        Plotting the relationship between date and price by another category as color
+        """
+        
+        # Plotting scaterplot
+        plt.title(f'Prices Vs Dates by {by}')
+        sns.scatterplot(x='date_num', 
+                        y='price', 
+                        hue=by, 
+                        data=self.df_merged)
+        
+        
 
