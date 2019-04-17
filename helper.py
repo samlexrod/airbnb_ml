@@ -47,8 +47,21 @@ def cleaning_dollar(series):
     """
     To clean dollar signs and commas
     """
-    series = series.str.replace('$', '')
-    series = series.str.replace(',', '').astype(float)
+    # Function to handle nulls
+    join_func = lambda x: ''.join(x) if type(x)!=float else x
+    
+    series = series.str.findall('[^$,]').apply(join_func).astype(float)
+    
+    return series
+
+def cleaning_percent(series):
+    """
+    To clean percentages and convert to ratio format
+    """    
+    # Function to handle nulls
+    join_func = lambda x: ''.join(x) if type(x)!=float else x
+    
+    series = series.str.findall('[^%]').apply(join_func).astype(float)/100
     
     return series
 
@@ -157,46 +170,100 @@ class AnalysisStatus:
                         hue=by, 
                         data=self.df_merged)
         
-def split_create_dummy(series):
-    """
-    To split features separated by delimiter as listings
+class DummySplit:
     
-    parameters
-    ----------
-    series : the data as a series object    
-    """
-    
-    # Empty frame
-    split_dummy = pd.DataFrame()
-
-    # Awesomely splitting and getting unique content
-    join_func = lambda x: ''.join(x)
-    re_cond = '[a-zA-Z,]'
-    re_sub = '[^a-zA-Z,]'
-    re_sub_func = lambda x: re.sub(re_sub, '', x)
-    
-
-    content = series.str.findall(re_cond).apply(
-        join_func).str.split(',').tolist()
-
-    unique_content = []
-    for sublist in content:
-        for item in sublist:
-            unique_content.append(item)
-
-    unique_content = list(dict.fromkeys(unique_content))
-
-    unique_content = [val for val in unique_content if val not in ('', 'None', 'nan', 'NaN')]
-
-    # Finding content
-    for val in unique_content:
-        dummy = series.apply(re_sub_func).str.find(
-            val).apply(lambda x: 0 if x < 0 else 1)
-
-        # Creating the dummy frame
-        split_dummy = pd.concat([split_dummy, dummy.to_frame(val)], axis=1)
-
-    return split_dummy
+    def __init__(self, dataframe):
+        """
+        To split, encode, and add to dataset
+        """
+        import warnings
+        import pandas as pd
+        import re
         
+        global warnings, pd, re
         
+        # Attributes
+        self.dummy_frame = pd.DataFrame()
+        self.dataframe = dataframe
+        self.dummy_columns = None
+        self.columns = dataframe.columns.tolist()
+        self.feature_name = None
+        
+    def split_create_dummy(self, feature_name):
+        """
+        To split features separated by delimiter as listings
 
+        parameters
+        ----------
+        feature_name : the name of the feature to transform   
+        """
+        
+        try:
+            series = self.dataframe[feature_name]
+  
+            self.feature_name = feature_name
+
+            # Awesomely splitting and getting unique content
+            join_func = lambda x: ''.join(x)
+            re_cond = '[a-zA-Z,]'
+            re_sub = '[^a-zA-Z,]'
+            re_sub_func = lambda x: re.sub(re_sub, '', x)
+
+
+            content = series.str.findall(re_cond).apply(
+                join_func).str.split(',').tolist()
+
+            unique_content = []
+            for sublist in content:
+                for item in sublist:
+                    unique_content.append(item)
+
+            unique_content = list(dict.fromkeys(unique_content))
+
+            unique_content = [val for val in unique_content if val not in ('', 'None', 'nan', 'NaN')]
+            
+            # Reset container
+            self.dummy_frame = pd.DataFrame()
+            
+            # Finding content
+            for val in unique_content:
+                dummy = series.apply(re_sub_func).str.find(
+                    val).apply(lambda x: 0 if x < 0 else 1)
+
+                # Creating the dummy frame
+                self.dummy_frame = pd.concat([self.dummy_frame, dummy.to_frame(val)], axis=1)  
+
+            # Store dummy colums for dataframe additions
+            self.dummy_columns = self.dummy_frame.columns.tolist()[:]
+        
+        except:
+            warnings.warn("Invalid feature was passed... pass a feature in the dataframe")
+            print(self.columns)            
+
+    def add_dummies(self, drop_original=False):
+        """
+        To add created dummies to the dataset passed at the same location in memory
+
+        parameters
+        ----------
+        dataframe : the dataframe to add the indicator variables into    
+        """
+        # To match split dumy index
+        #self.dataframe.reset_index(inplace=True, drop=True)
+        
+        # Drop derived features
+        try:
+            self.dataframe.drop(self.dummy_columns, axis=1, inplace=True)
+            print("Resetting Dummies :)")
+        except:
+            pass # First time try
+        
+        # Add new encoded features        
+        for dummy in self.dummy_columns:
+            self.dataframe.loc[:, dummy] = self.dummy_frame[dummy]
+            
+        # Remove original feature
+        try:
+            self.dataframe.drop(self.feature_name, axis=1, inplace=True)
+        except:
+            pass # Already removed
