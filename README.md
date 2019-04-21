@@ -2,6 +2,9 @@
 
 This projects focuses on the prediction of listing prices over a date period. The data comes from Kaggle.com. There are 2 different datasets analyzed here: [Boston](https://www.kaggle.com/airbnb/boston) and [Seattle](https://www.kaggle.com/airbnb/seattle/data). 
 
+Make sure the data is located inside a data folder named "data". 
+There is no need to unzip the files since the helper file takes care of it.
+
 ## Context
 This datasets describes the listing activity of homestays in Boston, MA and Seattle, WA.
 
@@ -27,11 +30,20 @@ In jupyter notebook:
 * wordcloud
 * zipfile.ZipFile
 
+The airbnb_ml.yml file in this repository contains all the packages used for this analysis.
+
 ## Registering the Environment to Use in Jupyter
 
-I exported the environment using (while activated) conda env export > airbnb_ml.yml
-FYI: to remove an environment use (while deactivated): conda remove --name airbnb_ml --all
+I exported the environment using (while activated):
+```
+conda env export > airbnb_ml.yml
+```
+FYI: to remove an environment use (while deactivated): 
+```
+conda remove --name airbnb_ml --all
+```
 
+To recreate the environment type the following in anaconda prompt:
 ```
 conda env create -f airbnb_ml.yml
 
@@ -42,5 +54,8 @@ activate airbnb_ml
 source activate jupyter-airbnb_ml
 
 ipython kernel install --user --name jupyter-airbnb_ml
+
+jupyter notebook
 ```
 
+## Thank you for visiting my repository!
