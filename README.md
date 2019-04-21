@@ -27,3 +27,20 @@ In jupyter notebook:
 * wordcloud
 * zipfile.ZipFile
 
+## Registering the Environment to Use in Jupyter
+
+I exported the environment using (while activated) conda env export > airbnb_ml.yml
+FYI: to remove an environment use (while deactivated): conda remove --name airbnb_ml --all
+
+'''
+conda env create -f airbnb_ml.yml
+
+conda install -n jupyter-airbnb_ml ipykernel
+
+activate airbnb_ml
+
+source activate jupyter-airbnb_ml
+
+ipython kernel install --user --name jupyter-airbnb_ml
+'''
+

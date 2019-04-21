@@ -85,18 +85,61 @@ class AnalysisStatus:
         
     def _merge(self):
         """
-        Merges the dataframes for analysis
-        """
+        Merges the dataframes for correlation analysis with price
+        
+        parameters
+        ----------
+        updted_frame : updated dataframe to use for the correlation analysis
+        """        
         self.df_merged = self.calendar.merge(
             self.listings,
             left_on='listing_id',
             right_on='id',
             how='left',
             suffixes=['', '_listing'])
-
-    def correlation_status(self, column_list, show_values=True):
+        
+    def colliniearity_table(self, include_perfect=True, multi_r=1):
         """
-        Plotting the correlations to keep track of multicollinearity and corrlation with price.
+        Prints a table with respective feature-price collinearity and
+        explanatory variable multicollinearity.
+
+        parameters
+        ----------
+        multi_r : the above or equal treshold of multicollinearity to show in table
+        exclude_perfect : to exclude perfect multicollinearity from the table
+        """
+        
+        print("Processing collinearity table. Please wait a minute.")
+
+        # Direction indicator function
+        direction_func = lambda x: (x.abs_multi_r < 0).map({True: '-', False: '+'})
+
+        # Absolute multicollinearity function
+        abs_multi_r_func = lambda x: x.abs_multi_r.apply(abs)
+
+        # Mutlicollinearity treshold function
+        multi_r_func = lambda x: x.abs_multi_r >= multi_r
+
+        # Exclude perfect muticollinearity function
+        if include_perfect:
+            perfect_func = lambda x: x.abs_multi_r >= 0
+        else:
+            perfect_func = lambda x: x.abs_multi_r != 1
+
+        return self.df_merged.corr().reset_index().melt(
+            id_vars=['index', 'price'],
+            var_name='relation_to',
+            value_name='abs_multi_r').rename(columns={
+                'index': 'feature',
+                'price': 'price_r'
+            }).assign(
+                direction=direction_func,
+                abs_multi_r=abs_multi_r_func).where(perfect_func).where(
+                    multi_r_func).dropna().query("feature!=relation_to")
+
+    def correlation_heatmap(self, column_list, show_values=True):
+        """
+        Plotting the correlations to keep track of multicollinearity and correlation with price.
         
         parameters:
         -----------
@@ -118,7 +161,7 @@ class AnalysisStatus:
 
         sns.heatmap(price_corr, annot=show_values, cmap='magma');
         
-    def listing_row_null_dist(self, bins, title):
+    def null_row_listingdist(self, bins, title):
         """
         Plotting the distribution of null values by state
         """
@@ -145,6 +188,7 @@ class AnalysisStatus:
     def null_row_feature_status(self, percentages=False, threshold=.10):
         """
         Getting values of null values of listings
+        
         parameters
         ----------
         percentages : to see the results as a percentage of listings --default True
