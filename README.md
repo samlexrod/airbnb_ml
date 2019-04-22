@@ -12,8 +12,7 @@ This datasets describes the listing activity of homestays in Boston, MA and Seat
 The following Airbnb activity is included in this Boston dataset: 
     * Listings, including full descriptions and average review score 
     * Reviews, including unique id for each reviewer and detailed comments 
-    * Calendar, including listing id and the price and availability for that day
-    
+    * Calendar, including listing id and the price and availability for that day 
     
 ## Environment
 The environment used for this analysis is the Anaconda distribution using Python 3. 

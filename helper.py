@@ -1,6 +1,10 @@
-def unzip_files(zip_filename_list, folder=None):
+def unzip_files(zip_filename_list):
     """
     Unzipping the datasets
+    
+    parameters
+    ----------
+    zip_filename_list : the list of file names to unzip under the data folder
     """
     from zipfile import ZipFile
     import os
@@ -29,6 +33,8 @@ def unzip_files(zip_filename_list, folder=None):
 def read_concat(folder_names, target_file_name):
     """
     Reading files of different folders with same naming convention
+    
+    
     """
     import os
     import pandas as pd
