@@ -41,35 +41,12 @@ def unzip_files(zip_filename_list):
         # extracting
         try:
             zip_ref = ZipFile(filename_path)
-            zip_ref.extractall(folder_name)
+            zip_ref.extractall('data')
             zip_ref.close()
         except:
-            print('File already extracted!')
+            print(f'{file} already extracted!')
         
-        # appending folder names
-        if filename_path.find('.') >= 0:
-            folder_names.append(folder_name)
-        
-    return folder_names
-
-def read_concat(folder_names, target_file_name):
-    """
-    Reading files of different folders with same naming convention
-    
-    
-    """
-    import os
-    import pandas as pd
-   
-    
-    df_con = pd.DataFrame()
-    for folder in folder_names:
-        target = os.path.join(folder, target_file_name)
-        df = pd.read_csv(target)
-        df['rowsource'] = target
-        
-        df_con = pd.concat([df_con, df], axis=0, sort=True).reset_index(drop=True)
-    return df_con
+    return os.listdir('data')
 
 def cleaning_dollar(series):
     """
