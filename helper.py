@@ -1,3 +1,25 @@
+def iqr_outlier_detect(series):
+    """
+    To identify outliers using the quartile approach
+    
+    parameter
+    ---------
+    series : the series of values to check for in a pandas series object
+    """
+    import matplotlib.pyplot as plt
+    q1 = series.quantile(.25) 
+    q3 = series.quantile(.75)
+    q3_q1 = q3 - q1
+    upper_wisker = q3 + q3_q1 * 1.5
+    lower_wisker = q1 - q3_q1 * 1.5
+    
+    print(f"{series.describe()}")
+    
+    series.plot.box(vert=False, figsize=(10, 1))
+    plt.show()
+    
+    return lower_wisker, upper_wisker
+
 def unzip_files(zip_filename_list):
     """
     Unzipping the datasets
