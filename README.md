@@ -10,26 +10,16 @@ This datasets describes the listing activity of homestays in Boston, MA and Seat
 
 ## Content
 The following Airbnb activity is included in this Seattle dataset: 
-    * Listings, including full descriptions and average review score 
-    * Reviews, including unique id for each reviewer and detailed comments 
-    * Calendar, including listing id and the price and availability for that day 
+* Listings, including full descriptions and average review score 
+* Reviews, including unique id for each reviewer and detailed comments 
+* Calendar, including listing id and the price and availability for that day 
     
 ## Environment
 The environment used for this analysis is the Anaconda distribution using Python 3. 
+To install Anaconda follow the instructions provided in the Anaconda website:
+   https://docs.anaconda.com/anaconda/install/windows/
 
-The libraries used are the following:
-In jupyter notebook:
-* pandas
-* numpy
-* seaborn
-* matplotlib.pyplot
-* os
-* re
-* sklearn.preprocessing.OneHotEncoder
-* wordcloud
-* zipfile.ZipFile
-
-The airbnb_ml.yml file in this repository contains all the packages used for this analysis.
+The [airbnb_ml.yml](https://github.com/sammyrod/Airbnb_ML/blob/master/airbnb_ml.yml) file in this repository contains all the packages used for this analysis.
 
 ## Registering the Environment to Use in Jupyter
 
@@ -46,13 +36,9 @@ To recreate the environment type the following in anaconda prompt:
 ```
 conda env create -f airbnb_ml.yml
 
-conda install -n jupyter-airbnb_ml ipykernel
+conda install -n airbnb_ml ipykernel
 
-activate airbnb_ml
-
-source activate jupyter-airbnb_ml
-
-ipython kernel install --user --name jupyter-airbnb_ml
+ipython kernel install --user --name airbnb_ml
 
 jupyter notebook
 ```
