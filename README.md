@@ -38,11 +38,7 @@ conda env create -f airbnb_ml.yml
 
 conda install -n airbnb_ml ipykernel
 
-activate airbnb_ml
-
-source activate jupyter-airbnb_ml
-
-ipython kernel install --user --name jupyter-airbnb_ml
+ipython kernel install --user --name airbnb_ml
 
 jupyter notebook
 ```
