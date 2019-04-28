@@ -10,16 +10,16 @@ This datasets describes the listing activity of homestays in Boston, MA and Seat
 
 ## Content
 The following Airbnb activity is included in this Seattle dataset: 
-    * Listings, including full descriptions and average review score 
-    * Reviews, including unique id for each reviewer and detailed comments 
-    * Calendar, including listing id and the price and availability for that day 
+* Listings, including full descriptions and average review score 
+* Reviews, including unique id for each reviewer and detailed comments 
+* Calendar, including listing id and the price and availability for that day 
     
 ## Environment
 The environment used for this analysis is the Anaconda distribution using Python 3. 
 To install Anaconda follow the instructions provided in the Anaconda website:
    https://docs.anaconda.com/anaconda/install/windows/
 
-The airbnb_ml.yml file in this repository contains all the packages used for this analysis.
+The [airbnb_ml.yml](https://github.com/sammyrod/Airbnb_ML/blob/master/airbnb_ml.yml) file in this repository contains all the packages used for this analysis.
 
 ## Registering the Environment to Use in Jupyter
 
