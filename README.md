@@ -16,18 +16,8 @@ The following Airbnb activity is included in this Seattle dataset:
     
 ## Environment
 The environment used for this analysis is the Anaconda distribution using Python 3. 
-
-The libraries used are the following:
-In jupyter notebook:
-* pandas
-* numpy
-* seaborn
-* matplotlib.pyplot
-* os
-* re
-* sklearn.preprocessing.OneHotEncoder
-* wordcloud
-* zipfile.ZipFile
+To install Anaconda follow the instructions provided in the Anaconda website:
+   https://docs.anaconda.com/anaconda/install/windows/
 
 The airbnb_ml.yml file in this repository contains all the packages used for this analysis.
 
