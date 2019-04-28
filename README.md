@@ -46,7 +46,7 @@ To recreate the environment type the following in anaconda prompt:
 ```
 conda env create -f airbnb_ml.yml
 
-conda install -n jupyter-airbnb_ml ipykernel
+conda install -n airbnb_ml ipykernel
 
 activate airbnb_ml
 
