@@ -14,14 +14,16 @@ The following Airbnb activity is included in this Seattle dataset:
 * Reviews, including unique id for each reviewer and detailed comments 
 * Calendar, including listing id and the price and availability for that day 
     
-## Environment
+## Installation
+
+### Anaconda
 The environment used for this analysis is the Anaconda distribution using Python 3. 
 To install Anaconda follow the instructions provided in the Anaconda website:
    https://docs.anaconda.com/anaconda/install/windows/
 
 The [airbnb_ml.yml](https://github.com/sammyrod/Airbnb_ML/blob/master/airbnb_ml.yml) file in this repository contains all the packages used for this analysis.
 
-## Registering the Environment to Use in Jupyter
+### Registering the Environment to Use in Jupyter
 
 I exported the environment using (while activated):
 ```
@@ -42,5 +44,22 @@ ipython kernel install --user --name airbnb_ml
 
 jupyter notebook
 ```
+
+## Libraries Used
+
+These are the main packages used:
+   pandas
+   numpy
+   os
+   matplotlib
+   seaborn
+   sklearn
+   statsmodels
+   warnings
+   zipfile 
+   re
+   wordcloud 
+   
+   
 
 ## Thank you for visiting my repository!
