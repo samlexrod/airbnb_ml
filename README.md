@@ -1,5 +1,8 @@
 # Airbnb_ML
 
+## Project Motivation
+
+## Project Info
 This projects focuses on the prediction of listing prices over a date period. The data comes from Kaggle.com. And the dataset analyzed is for [Seattle](https://www.kaggle.com/airbnb/seattle/data). 
 
 Make sure the data is located inside a data folder named "data". 
@@ -8,7 +11,7 @@ There is no need to unzip the files since the helper file takes care of it.
 ## Context
 This datasets describes the listing activity of homestays in Boston, MA and Seattle, WA.
 
-## Content
+## File Descriptions
 The following Airbnb activity is included in this Seattle dataset: 
 * Listings, including full descriptions and average review score 
 * Reviews, including unique id for each reviewer and detailed comments 
@@ -60,6 +63,7 @@ These are the main packages used:
    re
    wordcloud 
    
+## Results   
    
 
 ## Thank you for visiting my repository!
