@@ -115,4 +115,4 @@ dmypy.json
 
 # Other
 *.csv
-*.gitattributes
+.gitattributes
