@@ -250,6 +250,9 @@ def cleaning_percent(series):
     return series
 
 class AnalysisStatus:
+    """
+    It contains methods useful to analyize collinearity, trend, and null row distributions
+    """
     
     def __init__(self, calendar, listings):
         """
@@ -321,7 +324,7 @@ class AnalysisStatus:
                 abs_multi_r=abs_multi_r_func).where(perfect_func).where(
                     multi_r_func).dropna().query("feature!=relation_to")
 
-    def correlation_heatmap(self, column_list, show_values=True):
+    def correlation_heatmap(self, column_list=None, show_values=True, title=''):
         """
         Plotting the correlations to keep track of multicollinearity and correlation with price.
         
@@ -329,20 +332,28 @@ class AnalysisStatus:
         -----------
         column_list : the list of columns to see on the heatmap
             use price_listing for listings price
+        show_values : to show anotations on the plot
+        title : to show a tittle in the plot
         """
-        col_interest = []
+                
+        # Show all columns if no column_list is passed
+        if not column_list:
+            col_interest = self.df_merged.columns
+        else:
+            col_interest = []
         
-        # Avoid duplicates
-        [col_interest.append(x) for x in ['price'] + column_list if x not in col_interest]
+            # Avoid duplicates
+            [col_interest.append(x) for x in ['price'] + column_list if x not in col_interest]
         
         # Merge price and listings
         price_corr = self.df_merged[col_interest]
         
         # Drop ids and set all as floats
-        price_corr = price_corr.query("price==price").astype(float).corr()
-
+        price_corr = price_corr.query("price==price").astype(float).corr()              
+              
+        # Plot
         plt.figure(figsize=(14, 10))
-
+        plt.title(title)
         sns.heatmap(price_corr, annot=show_values, cmap='magma');
         
     def null_row_listingdist(self, bins, title):
@@ -392,6 +403,10 @@ class AnalysisStatus:
                         data=self.df_merged)
         
 class DummySplit:
+    """
+    It contains methods useful to split unstructured categorical data from features and convert them into
+    indicator variables--all inplace.
+    """
     
     def __init__(self, dataframe):
         """
