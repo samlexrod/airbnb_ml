@@ -18,26 +18,26 @@ This datasets describes the listing activity of homestays in Boston, MA and Seat
 
 ## Files and Folder Descriptions
 
-data : It contains the Airbnb datasets
+**data** : It contains the Airbnb datasets
 * Listings, including full descriptions and average review score 
 * Reviews, including unique id for each reviewer and detailed comments 
 * Calendar, including listing id and the price and availability for that day 
 
-images : It contains the images of graphs and tables used in the [article](https://medium.com/@samlexrod/crisp-dm-regression-analysis-in-python-ade4b74bdc85).
+**images** : It contains the images of graphs and tables used in the [article](https://medium.com/@samlexrod/crisp-dm-regression-analysis-in-python-ade4b74bdc85).
 
-.gitignore : this are the files not synced on GitHub. To know more about this file visit: https://www.git-scm.com/docs/gitignore
+**.gitignore** : this are the files not synced on GitHub. To know more about this file visit: https://www.git-scm.com/docs/gitignore
 
-Airnb_Seattle_Complex.ipynb : It contains the complex analysis. This file does not follow the same order as the article since it contains more complex analyses.
+**Airnb_Seattle_Complex.ipynb** : It contains the complex analysis. This file does not follow the same order as the article since it contains more complex analyses.
 
-Airbnb_Seattle_Simple.ipynb : It contains the simple analysis. This file does support the article on Medium.com. This is the file to use to reference what is being covered on ["Dive in the CRISP-DM to Understand and Predict Seattle Listing Prices"](https://medium.com/@samlexrod/crisp-dm-regression-analysis-in-python-ade4b74bdc85?source=friends_link&sk=3629b7e62926e5483b09311380fb1653)
+**Airbnb_Seattle_Simple.ipynb** : It contains the simple analysis. This file does support the article on Medium.com. This is the file to use to reference what is being covered on ["Dive in the CRISP-DM to Understand and Predict Seattle Listing Prices"](https://medium.com/@samlexrod/crisp-dm-regression-analysis-in-python-ade4b74bdc85?source=friends_link&sk=3629b7e62926e5483b09311380fb1653)
 
-LICENSE : This is the license to use the code. It basically says, "Use it however you like at your own risk."
+**LICENSE** : This is the license to use the code. It basically says, "Use it however you like at your own risk."
 
-README : You are reading me!
+**README** : You are reading me!
 
-airbnb_ml.yml : This is the anaconda enviroment used for the analysis. The instructions on how to recreate this environmnet is going to be in the installation section below.
+**airbnb_ml.yml** : This is the anaconda enviroment used for the analysis. The instructions on how to recreate this environmnet is going to be in the installation section below.
 
-helper.py : This is the file that contains the modular code. It contains useful classes, functions, and methods designed specifically for the analysis to avoid repetition of code.
+**helper.py** : This is the file that contains the modular code. It contains useful classes, functions, and methods designed specifically for the analysis to avoid repetition of code.
 
     
 ## Installation
