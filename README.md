@@ -11,7 +11,7 @@ The motivation to do this project stated with the suggested datasets to work wit
 The data comes from Kaggle.com. And the dataset analyzed is for [Seattle](https://www.kaggle.com/airbnb/seattle/data). 
 
 The article corresponding to the Python code was wirtten on Medium.com.
-https://medium.com/@samlexrod/crisp-dm-regression-analysis-in-python-ade4b74bdc85?source=friends_link&sk=3629b7e62926e5483b09311380fb1653
+["Dive in the CRISP-DM to Understand and Predict Seattle Listing Prices"](https://medium.com/@samlexrod/crisp-dm-regression-analysis-in-python-ade4b74bdc85?source=friends_link&sk=3629b7e62926e5483b09311380fb1653)
 
 ## Context
 This datasets describes the listing activity of homestays in Boston, MA and Seattle, WA.
