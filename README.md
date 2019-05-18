@@ -58,11 +58,6 @@ I exported the environment using (while activated):
 ```
 conda env export > airbnb_ml.yml
 ```
-FYI: to remove an environment use (while deactivated): 
-```
-conda remove --name airbnb_ml --all
-```
-
 To recreate the environment type the following in anaconda prompt:
 ```
 conda env create -f airbnb_ml.yml
@@ -72,6 +67,16 @@ conda install -n airbnb_ml ipykernel
 ipython kernel install --user --name airbnb_ml
 
 jupyter notebook
+```
+
+Removals:
+To remove an environment use (while deactivated): 
+```
+conda remove --name airbnb_ml --all
+```
+To remove the kernel from Jupyter notebook:
+```
+jupyter kernelspec uninstall airbnb_ml
 ```
 
 ## Libraries Used
